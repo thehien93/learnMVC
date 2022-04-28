@@ -5,18 +5,22 @@ const morgan = require('morgan')
 const path =require('path')
 const route = require('./router')
 const db = require('./config/db')
+const methodOverRide = require('method-override')
 
 const app = express()
 const port = 3000
-app.use(morgan('combined'))
 
-app.engine('.hbs', engine({extname: '.hbs'}));
+app.use(express.json());
+app.use(morgan('combined'))
+app.use(methodOverRide('_method'))
+app.engine('.hbs', engine({extname: '.hbs',
+                            helpers:{
+                                sum:(a, b) => a + b,
+                            }}));
 app.set('view engine', '.hbs');
 app.set('views',path.join(__dirname, 'resource','views'));
 
 route(app)
 
 db.connect()
-  app.listen(port, () => {
-    console.log(` app listening on port ${port}`)
-  })
+app.listen(3000);
