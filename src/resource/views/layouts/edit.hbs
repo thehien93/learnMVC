@@ -1,6 +1,6 @@
 <div class="mt-4">
     <h3 class="text-center">Update the Course</h3>
-    <form method="post" action="{{course._id}}?method=PUT" class="container">
+    <form method="post" action="/course/{{course._id}}?_method=PUT" class="container">
         <div class="form-group">
             <label for="name" class="form-label">name</label>
             <input id="name" type="text" class="form-control" value="{{course.name}}" name="name" >
@@ -17,6 +17,6 @@
             <label for="videoId" class="form-label">videoId</label>
             <input id="videoId" type="text" class="form-control" value="{{course.videoId}}" name="videoId" >
         </div>
-        <button id="name" type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary">Save</button>
     </form> 
 </div>

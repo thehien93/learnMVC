@@ -15,17 +15,18 @@ class  CourseController {
             res.render('layouts/create')
         }
         store(req, res, next) {
-            // let formData = {...req.body}
-            // formData.image = `https://www.youtube.com/watch?v=${req.body.videoId}`
+            let formData = {...req.body}
+            formData.image = `https://www.youtube.com/watch?v=${req.body.videoId}`
             let course = new Course(req.body)
-            // course.save()
-            window.fetch(course)
+            course.save()
+            // fetch(course)
                 .then(() => res.redirect('/'))
                 .catch(error => {}) 
 
         }
+        // [GET]sourse/:id/edit
         edit(req, res, next) {
-           Course.findById(req.param.id)
+           Course.findById(req.params.id)
            .then(course => res.render('layouts/edit', {course: mongooseToObject(course)}))
            .catch(next)
            
@@ -34,8 +35,14 @@ class  CourseController {
         //[PUT] /course/:id
         update(req, res, next) {
             Course.updateOne({_id: req.params.id} , req.body)
-            .then(() => res.redirect('/me/stored/course'))
+            .then(() => res.redirect('/me/stored/courses'))
             .catch(next)
+        }
+        //[DELETE]
+        destroy(req, res, next) {
+           Course.deleteOne({_id: req.params.id})
+           .then(() => res.redirect('back'))
+           .catch(next)
         }
 }
 
