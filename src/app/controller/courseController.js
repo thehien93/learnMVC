@@ -15,15 +15,14 @@ class  CourseController {
             res.render('layouts/create')
         }
         store(req, res, next) {
-            let formData = {...req.body}
-            formData.image = `https://www.youtube.com/watch?v=${req.body.videoId}`
-            let course = new Course(req.body)
+            let formData = { ...req.body };
+            formData.image = `https://www.youtube.com/watch?v=${req.body.videoId}`;
+            let course = new Course(req.body);
             course.save()
-            // fetch(course)
-                .then(() => res.redirect('/'))
-                .catch(error => {}) 
-
-        }
+              // fetch(course)
+              .then(() => res.redirect("/"))
+              .catch((error) => {});
+          }
         // [GET]sourse/:id/edit
         edit(req, res, next) {
            Course.findById(req.params.id)
