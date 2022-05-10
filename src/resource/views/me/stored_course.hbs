@@ -18,14 +18,15 @@
                 <td>{{this.createdAt}}</td>
                 <td>
                     <a href="/course/{{this._id}}/edit" class="btn btn-primary btn-lg">Edit</a>
-                    <a href="/course/{{this._id}}" id="btn-delete" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#delete-course" data-id="{{this._id}}">Delete</a>
+                    <a href="" id="btn-delete" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#delete-course" data-id="{{this._id}}">Delete</a>
                 </td>
             </tr>
             {{/each}}
         </tbody>
-</table>
+    </table>
 </div>
-<div class="modal" tabindex="-1" role="dialog " id="delete-course">
+{{!-- confirm course --}}
+<div class="modal" tabindex="-1" role="dialog" id="delete-course">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -44,7 +45,7 @@
     </div>
   </div>
 </div>
-<form name="delete-course-form" method="delete">
+<form name="delete-course-form" method="post">
   <input type="hidden" name="_method" value="delete">
 </form> 
 
@@ -53,10 +54,10 @@
         var courseID;
         var deleteForm = document.forms['delete-course-form']
         var btnDeleteCourse = document.getElementById('btn-delete-course-modal')
-       
         $('#delete-course').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         courseID = button.data('id') 
+        console.log(courseID)
         })
          btnDeleteCourse.onclick = function(){
             deleteForm.action = '/course/' + courseID + '?_method=delete'
